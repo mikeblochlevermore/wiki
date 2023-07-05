@@ -1,5 +1,6 @@
 from django.shortcuts import render
 import markdown2
+import random
 
 from . import util
 
@@ -15,6 +16,10 @@ def create(request):
 
 def entry(request, title):
     return render(request, "encyclopedia/entry.html", {
+        "title": title,
         "content": markdown2.markdown(util.get_entry(title))
     })
 
+def random_page(request):
+    title = random.choice(util.list_entries())
+    return entry(request, title)
