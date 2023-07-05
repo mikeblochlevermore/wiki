@@ -7,13 +7,16 @@
 {% block body %}
     <h1>Search Results</h1>
 
-    <ul>
-            <li><a href="wiki/{{ query }}">{{ query }}</a></li>
-    </ul>
+    <h3>You searched for: "{{ query }}"</h3>
 
-    <form>
-        <h3>Search Again</h3>
-        <input class="search" type="text" name="q" placeholder="Search Encyclopedia">
-    </form>
+    {% if partial_match %}
+    <h3>Did you mean:</h3>
+
+    <ul>
+        {% for entry in partial_match %}
+            <h3><a href="wiki/{{ entry }}">{{ entry }}</a></h3>
+        {% endfor %}
+    </ul>
+    {% endif %}
 
 {% endblock %}
