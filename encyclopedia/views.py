@@ -14,7 +14,7 @@ def index(request):
 
 class NewEntryForm(forms.Form):
     title = forms.CharField(label="title")
-    content = forms.CharField(label="content")
+    content = forms.CharField(label="content", widget=forms.Textarea)
 
 def create(request):
 
