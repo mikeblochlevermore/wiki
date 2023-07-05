@@ -1,0 +1,19 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Search Results
+{% endblock %}
+
+{% block body %}
+    <h1>Search Results</h1>
+
+    <ul>
+            <li><a href="wiki/{{ query }}">{{ query }}</a></li>
+    </ul>
+
+    <form>
+        <h3>Search Again</h3>
+        <input class="search" type="text" name="q" placeholder="Search Encyclopedia">
+    </form>
+
+{% endblock %}

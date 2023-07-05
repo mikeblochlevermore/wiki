@@ -13,5 +13,7 @@ urlpatterns = [
     # path to a random page
     path("wiki/", views.random_page, name="random"),
 
-    path("error", views.error, name="error")
+    path("error", views.error, name="error"),
+
+    path("search", views.search, name="search")
 ]

@@ -36,3 +36,8 @@ def random_page(request):
     title = random.choice(util.list_entries())
     return entry(request, title)
 
+def search(request):
+    query = request.GET.get('q')
+    return render(request, "encyclopedia/search.html", {
+        "query": query,
+    })
