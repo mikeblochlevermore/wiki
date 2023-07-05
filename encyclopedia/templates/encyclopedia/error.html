@@ -1,0 +1,14 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    404 Not Found
+{% endblock %}
+
+{% block body %}
+<!-- "|safe" causes markdown2 to render directly as html, rather than place the converted html in quote marks -->
+    <h1>404 Not Found</h1>
+    <h3>We don't seem to have that page yet!</h3>
+    <a href="{% url 'index' %}">Back to Index</a>
+    <a href="{% url 'index' %}">Create a New Page</a>
+
+{% endblock %}

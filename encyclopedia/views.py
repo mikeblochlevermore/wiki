@@ -23,3 +23,7 @@ def entry(request, title):
 def random_page(request):
     title = random.choice(util.list_entries())
     return entry(request, title)
+
+def error(request):
+    return render(request, "encyclopedia/error.html", {
+    })
