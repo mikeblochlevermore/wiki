@@ -12,11 +12,10 @@
     {% if partial_match %}
     <h3>Did you mean:</h3>
 
-    <ul>
         {% for entry in partial_match %}
             <h3><a href="wiki/{{ entry }}">{{ entry }}</a></h3>
         {% endfor %}
-    </ul>
+
     {% endif %}
 
 {% endblock %}

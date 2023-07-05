@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django import forms
 import markdown2
 import random
 from urllib.error import HTTPError
@@ -11,8 +12,31 @@ def index(request):
         "entries": util.list_entries()
     })
 
+class NewEntryForm(forms.Form):
+    title = forms.CharField(label="title")
+    content = forms.CharField(label="content")
+
 def create(request):
-    return render(request, "encyclopedia/create.html", {
+
+    if request.method == "POST":
+        # Take in the data the user submitted and save it as form
+        form = NewEntryForm(request.POST)
+
+        # Check if form data is valid (server-side)
+        if form.is_valid():
+
+            # Isolate the task from the 'cleaned' version of form data
+            title = form.cleaned_data["title"]
+            content = form.cleaned_data["content"]
+            util.save_entry(title, content)
+            return render(request, "encyclopedia/index.html", {
+                "entries": util.list_entries()
+        })
+        else:
+            return render(request, "encyclopedia/error.html")
+    else:
+        return render(request, "encyclopedia/create.html", {
+            "form": NewEntryForm()
     })
 
 def entry(request, title):
