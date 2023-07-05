@@ -28,10 +28,16 @@ def create(request):
             # Isolate the task from the 'cleaned' version of form data
             title = form.cleaned_data["title"]
             content = form.cleaned_data["content"]
-            util.save_entry(title, content)
-            return render(request, "encyclopedia/index.html", {
-                "entries": util.list_entries()
-        })
+
+            # Saves only if the new title does not already exist
+            if util.get_entry(title) is None:
+                util.save_entry(title, content)
+            else:
+                return render(request, "encyclopedia/error.html")
+
+            # Sends user to newly-created page
+            return entry(request, title)
+
         else:
             return render(request, "encyclopedia/error.html")
     else:
