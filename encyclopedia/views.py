@@ -25,7 +25,7 @@ def create(request):
         # Check if form data is valid (server-side)
         if form.is_valid():
 
-            # Isolate the task from the 'cleaned' version of form data
+            # Isolate the title and content from the 'cleaned' version of form data
             title = form.cleaned_data["title"]
             content = form.cleaned_data["content"]
 
@@ -50,7 +50,7 @@ def entry(request, title):
         content = util.get_entry(title)
         if content is None:
             raise HTTPError(None, 404, "Entry not found", None, None)
-        # Got help from Chat GPT for the above line
+        # Credit to Chat GPT for the above line
         return render(request, "encyclopedia/entry.html", {
             "title": title,
             "content": markdown2.markdown(content)
@@ -94,3 +94,25 @@ def partial_matches(query, entries):
         if query.lower() in entry.lower():
             partial_match.append(entry)
     return partial_match
+
+# For editing pages
+def edit(request):
+    if request.method == "GET":
+        title = request.GET.get('title')
+        content = util.get_entry(title)
+        return render(request, "encyclopedia/edit.html", {
+                "form": NewEntryForm(initial={'title': title, 'content': content}),
+                "title": title,
+        })
+
+    if request.method == "POST":
+        form = NewEntryForm(request.POST)
+
+        if form.is_valid():
+
+            title = form.cleaned_data["title"]
+            content = form.cleaned_data["content"]
+
+            # in edit mode, the entry is simply overwritten, unless the title is altered
+            util.save_entry(title, content)
+            return entry(request, title)

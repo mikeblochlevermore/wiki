@@ -7,6 +7,8 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("create", views.create, name="create"),
 
+    path("edit", views.edit, name="edit"),
+
     # path that serves all entries
     path("wiki/<str:title>", views.entry, name="entry"),
 
