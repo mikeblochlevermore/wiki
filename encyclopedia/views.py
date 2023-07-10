@@ -3,6 +3,7 @@ from django import forms
 import markdown2
 import random
 from urllib.error import HTTPError
+import requests
 
 from . import util
 
@@ -12,9 +13,14 @@ def index(request):
         "entries": util.list_entries()
     })
 
+
+# template for creating and editing entries
 class NewEntryForm(forms.Form):
     title = forms.CharField(label="title")
     content = forms.CharField(label="content", widget=forms.Textarea)
+
+class UsernameForm(forms.Form):
+    username = forms.CharField(label="username")
 
 def create(request):
 
@@ -92,7 +98,7 @@ def search(request):
         title = query
         return entry(request, title)
 
-# function to look for partial matches between the query and exisitng titles
+# function to look for partial matches between the query and exisitng titles, part of search function
 def partial_matches(query, entries):
     partial_match = []
     for entry in entries:
@@ -123,3 +129,51 @@ def edit(request):
             # in edit mode, the entry is simply overwritten, unless the title is altered
             util.save_entry(title, content)
             return entry(request, title)
+
+def git(request):
+
+    if request.method == "GET":
+        return render(request, "encyclopedia/git.html", {
+            "form": UsernameForm(),
+    })
+
+    if request.method == "POST":
+        # url to get details of public repositories for that user
+        form = UsernameForm(request.POST)
+
+        # Check if form data is valid (server-side)
+        if form.is_valid():
+
+            # Get the username inputted
+            username = form.cleaned_data["username"]
+
+            repo_url = f"https://api.github.com/users/{username}/repos"
+            response = requests.get(repo_url)
+            if response.status_code == 200:
+                repos = response.json()
+
+            # sorts the json data into a list of names of repositories
+            repo_names = []
+            for repo in repos:
+                repo_names.append(repo["name"])
+
+            # searches for README.md files on the main branch of that username
+            for title in repo_names:
+                lookup = requests.get(f"https://raw.githubusercontent.com/{username}/{title}/main/README.md")
+
+                # if found, the README files are saved to the wiki
+                if lookup.status_code == 200:
+                    contents = lookup.text
+                    util.save_entry(title, contents)
+
+                # some READMEs are under the blob subfolder, not sure why..
+                lookup = requests.get(f"https://raw.githubusercontent.com/{username}/{title}/blob/main/README.md")
+
+                # if found, the README files are saved to the wiki
+                if lookup.status_code == 200:
+                    contents = lookup.text
+                    util.save_entry(title, contents)
+
+        return render(request, "encyclopedia/index.html", {
+            "entries": util.list_entries()
+        })

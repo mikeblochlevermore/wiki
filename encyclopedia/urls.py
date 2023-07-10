@@ -17,5 +17,7 @@ urlpatterns = [
 
     path("error", views.error, name="error"),
 
-    path("search", views.search, name="search")
+    path("search", views.search, name="search"),
+
+    path("git", views.git, name="git")
 ]

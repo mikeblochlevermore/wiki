@@ -1,0 +1,17 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Git
+{% endblock %}
+
+{% block body %}
+
+    <h1>Download Entries from GitHub</h1>
+
+    <form action="{% url 'git' %}" method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit">
+    </form>
+
+{% endblock %}
