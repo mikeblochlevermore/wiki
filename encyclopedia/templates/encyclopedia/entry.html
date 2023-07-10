@@ -8,6 +8,7 @@
 <!-- "|safe" causes markdown2 to render directly as html, rather than place the converted html in quote marks -->
     <div>{{ content|safe }}</div>
 
+    <!-- button to edit the entry - the title is sent for reference -->
     <form action="{% url 'edit' %}" method="GET">
         <input type="hidden" value="{{ title }}" name="title">
         <button type="submit">Edit this article</button>

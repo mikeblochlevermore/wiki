@@ -33,7 +33,13 @@ def create(request):
             if util.get_entry(title) is None:
                 util.save_entry(title, content)
             else:
-                return render(request, "encyclopedia/error.html")
+                error_message = "This Entry Already Exists, please choose another title"
+
+                # returns the form with the fields prepopulated with the content that was previously attempted to submit
+                return render(request, "encyclopedia/create.html", {
+                "form": NewEntryForm(initial={'title': title, 'content': content}),
+                'error_message': error_message,
+             })
 
             # Sends user to newly-created page
             return entry(request, title)
@@ -97,6 +103,7 @@ def partial_matches(query, entries):
 
 # For editing pages
 def edit(request):
+    # will load the editing page with the content from the entry due to be edited
     if request.method == "GET":
         title = request.GET.get('title')
         content = util.get_entry(title)

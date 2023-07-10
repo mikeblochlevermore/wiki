@@ -1,10 +1,17 @@
 {% extends "encyclopedia/layout.html" %}
 
 {% block title %}
-    Encyclopedia
+    Create an Entry
 {% endblock %}
 
 {% block body %}
+
+    {% if error_message %}
+        <script>
+            alert("{{ error_message }}");
+        </script>
+    {% endif %}
+
     <h1>Create a Page</h1>
 
     <form action="{% url 'create' %}" method="POST">
