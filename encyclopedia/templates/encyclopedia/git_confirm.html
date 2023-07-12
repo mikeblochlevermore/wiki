@@ -1,0 +1,21 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Confirm Downloads
+{% endblock %}
+
+{% block body %}
+    <h1>Files to be Downloaded:</h1>
+
+    <form action="{% url 'git_confirm' %}" method="POST">
+        {% csrf_token %}
+        <button type="submit">Download Files</button>
+    </form>
+
+<!-- "slice" displays only a preview of the contents data -->
+        {% for title, contents in content.items %}
+            <h3>{{ title }}</h3>
+            <p>PREVIEW: {{ contents|slice:":100" }}...</p>
+        {% endfor %}
+
+{% endblock %}

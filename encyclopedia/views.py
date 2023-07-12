@@ -130,6 +130,12 @@ def edit(request):
             util.save_entry(title, content)
             return entry(request, title)
 
+
+
+# git functions allow users to download README files from GitHub users by specifying username
+# data from the READMEs is stored in this dictionary:
+content = {}
+
 def git(request):
 
     if request.method == "GET":
@@ -147,33 +153,49 @@ def git(request):
             # Get the username inputted
             username = form.cleaned_data["username"]
 
-            repo_url = f"https://api.github.com/users/{username}/repos"
-            response = requests.get(repo_url)
-            if response.status_code == 200:
-                repos = response.json()
+            # clears previous entries in the README dictionary
+            content.clear()
+            # retrieves new README titles and contents:
+            content.update(get_git_data(username))
 
-            # sorts the json data into a list of names of repositories
-            repo_names = []
-            for repo in repos:
-                repo_names.append(repo["name"])
-
-            # searches for README.md files on the main branch of that username
-            for title in repo_names:
-                lookup = requests.get(f"https://raw.githubusercontent.com/{username}/{title}/main/README.md")
-
-                # if found, the README files are saved to the wiki
-                if lookup.status_code == 200:
-                    contents = lookup.text
-                    util.save_entry(title, contents)
-
-                # some READMEs are under the blob subfolder, not sure why..
-                lookup = requests.get(f"https://raw.githubusercontent.com/{username}/{title}/blob/main/README.md")
-
-                # if found, the README files are saved to the wiki
-                if lookup.status_code == 200:
-                    contents = lookup.text
-                    util.save_entry(title, contents)
-
-        return render(request, "encyclopedia/index.html", {
-            "entries": util.list_entries()
+        return render(request, "encyclopedia/git_confirm.html", {
+            "content": content,
         })
+
+# confirms download of entries from GitHub
+def git_confirm(request):
+
+    if request.method == "POST":
+
+        # iterates through the content dictionary and saves the entries
+        for title, contents in content.items():
+            util.save_entry(title, contents)
+
+    return render(request, "encyclopedia/index.html", {
+            "entries": util.list_entries()
+    })
+
+# function to retrieve README data from GitHub
+def get_git_data(username):
+
+    # looks up the names of public repositories for that user
+    repo_url = f"https://api.github.com/users/{username}/repos"
+    response = requests.get(repo_url)
+    if response.status_code == 200:
+        repos = response.json()
+
+        # sorts the json data into a list of names of repositories
+        repo_names = []
+        for repo in repos:
+            repo_names.append(repo["name"])
+
+        # searches for README.md files on the main branch of each respository
+        for title in repo_names:
+            lookup = requests.get(f"https://raw.githubusercontent.com/{username}/{title}/main/README.md")
+
+            # if found, the README files are stored in a dictionary (called content), sorted by their names.
+            if lookup.status_code == 200:
+                title = username + " - " + title
+                content[title] = lookup.text
+
+        return content
