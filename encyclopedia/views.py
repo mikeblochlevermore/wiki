@@ -156,11 +156,22 @@ def git(request):
             # clears previous entries in the README dictionary
             content.clear()
             # retrieves new README titles and contents:
-            content.update(get_git_data(username))
+            error_message = None
 
-        return render(request, "encyclopedia/git_confirm.html", {
-            "content": content,
-        })
+            try:
+                content.update(get_git_data(username))
+            except Exception as e:
+                error_message = str(e)
+
+            if error_message:
+                return render(request, "encyclopedia/git.html", {
+                    "error_message": error_message,
+                    "form": UsernameForm(),
+                })
+            else:
+                return render(request, "encyclopedia/git_confirm.html", {
+                    "content": content,
+                })
 
 # confirms download of entries from GitHub
 def git_confirm(request):
@@ -199,3 +210,6 @@ def get_git_data(username):
                 content[title] = lookup.text
 
         return content
+
+    else:
+        raise Exception("We couldnt find a repository list for that user, please try a different username")

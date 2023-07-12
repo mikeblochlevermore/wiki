@@ -8,6 +8,12 @@
 
     <h1>Download Entries from GitHub</h1>
 
+    {% if error_message %}
+        <script>
+            alert("{{ error_message }}");
+        </script>
+    {% endif %}
+
     <form action="{% url 'git' %}" method="POST">
         {% csrf_token %}
         {{ form }}

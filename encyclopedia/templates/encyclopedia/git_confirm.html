@@ -5,6 +5,9 @@
 {% endblock %}
 
 {% block body %}
+
+
+
     <h1>Files to be Downloaded:</h1>
 
     <form action="{% url 'git_confirm' %}" method="POST">
@@ -16,6 +19,9 @@
         {% for title, contents in content.items %}
             <h3>{{ title }}</h3>
             <p>PREVIEW: {{ contents|slice:":100" }}...</p>
+<!-- "empty" displays a message if a user exists but no READMEs are discovered  -->
+        {% empty %}
+            <h3>No README.md Files were found for this user</h3>
         {% endfor %}
 
 {% endblock %}
