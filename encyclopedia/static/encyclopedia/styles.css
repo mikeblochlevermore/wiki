@@ -1,11 +1,6 @@
 * {
-    margin: 0px;
-    font-family: Helvetica, Arial, sans-serif;
-}
-
-body {
     margin: 0;
-    background-color: white;
+    font-family: Helvetica, Arial, sans-serif;
 }
 
 nav {
@@ -80,7 +75,7 @@ nav a {
     border-radius: 20px;
 }
 
-a:hover {
+nav a:hover {
     background-color: #202124;
 }
 
@@ -98,22 +93,95 @@ textarea {
     width: 80%;
 }
 
-.main {
-    padding: 10px;
+#index_main {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    margin: 20px;
 }
 
-.search {
-    width: 100%;
-    font-size: 15px;
-    line-height: 15px;
+#git_searcharea {
+    margin: auto;
 }
 
-.sidebar {
-    background-color: #f0f0f0;
-    height: 100vh;
-    padding: 20px;
+h1 {
+    margin-top: 50px;
+    margin-bottom: 20px;
 }
 
-.sidebar h2 {
-    margin-top: 5px;
+#git_searchbar {
+    height: 40px;
+    border-radius: 20px;
+    border: 2px solid #202124;
+    border-width: 1px;
+    display: flex;
+    width: 50vw;
+    align-items: center;
+    color: black;
+    margin-top: 20px;
+}
+
+#git_searchbar input {
+    outline: none;
+    border: none;
+    cursor: auto;
+    background-color: inherit;
+    color: black;
+    align-items: center;
+    width: 45vw;
+}
+
+#git_searchbar:hover {
+    box-shadow: 0 1px 6px rgba(32,33,36,.28);
+    border-color: rgba(223,225,229,0);
+}
+
+.entries_list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 10px;
+    list-style: none;
+    text-align: center;
+}
+
+.entries_list i {
+    font-size: 30px;
+    padding: 4px;
+}
+
+.entries_list a {
+    text-decoration: none;
+    color: #202124;
+    padding: 12px;
+    width: 150px;
+}
+
+.entries_list a:hover {
+   background-color: whitesmoke;
+   border-radius: 20px;
+}
+
+#entry p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+
+#entry {
+    margin: -10px 80px 10px 80px;
+}
+
+.edit_button {
+    position: absolute;
+    right: 0;
+    margin: 20px;
+    padding: 8px;
+    background: #1a73e8;
+    border: 1px solid transparent;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
 }

@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block body %}
-
-<h1>Download Entries from GitHub</h1>
+<main id="index_main">
+    <h1>Download entries from GitHub</h1>
 
     {% if error_message %}
         <script>
@@ -14,18 +14,27 @@
         </script>
     {% endif %}
 
-    <form action="{% url 'index' %}" method="POST">
-        {% csrf_token %}
-        {{ form }}
-        <input type="submit">
-    </form>
+    <div id="git_searcharea">
+        <form action="{% url 'index' %}" method="POST">
+            {% csrf_token %}
+            <div id="git_searchbar">
+                <i id="magnifier" class="fa fa-search"></i>
+                {{ form }}
+            </div>
+        </form>
+    </div>
 
-    <h1>All Pages</h1>
+    <h1>All Entries</h1>
 
-    <ul>
+    <div class="entries_list">
         {% for entry in entries %}
-            <li><a href="wiki/{{ entry }}">{{ entry }}</a></li>
+                <a href="wiki/{{ entry }}">
+                    <div>
+                        <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                    </div>
+                    {{ entry }}
+                </a>
         {% endfor %}
-    </ul>
-
+    </div>
+</main>
 {% endblock %}
