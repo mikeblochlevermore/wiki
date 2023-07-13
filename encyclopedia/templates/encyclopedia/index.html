@@ -26,15 +26,17 @@
 
     <h1>All Entries</h1>
 
-    <div class="entries_list">
-        {% for entry in entries %}
-                <a href="wiki/{{ entry }}">
-                    <div>
-                        <i class="fa fa-file-text-o" aria-hidden="true"></i>
-                    </div>
-                    {{ entry }}
-                </a>
-        {% endfor %}
+    <div class="wrapper">
+        <div class="entries_list">
+            {% for entry in entries %}
+                    <a href="wiki/{{ entry }}">
+                        <div>
+                            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                        </div>
+                        {{ entry }}
+                    </a>
+            {% endfor %}
+        </div>
     </div>
 </main>
 {% endblock %}
