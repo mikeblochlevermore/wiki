@@ -6,22 +6,26 @@
 
 {% block body %}
 
-
-
-    <h1>Files to be Downloaded:</h1>
+<main id="git_confirm_page">
+    <h1>README files available:</h1>
 
     <form action="{% url 'git_confirm' %}" method="POST">
         {% csrf_token %}
-        <button type="submit">Download Files</button>
+        <button  class="confirm_button" type="submit">Download All</button>
     </form>
 
 <!-- "slice" displays only a preview of the contents data -->
         {% for title, contents in content.items %}
-            <h3>{{ title }}</h3>
-            <p>PREVIEW: {{ contents|slice:":100" }}...</p>
+            <div class="download_list">
+                <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                <div class="download_contents">
+                    <h3>{{ title }}</h3>
+                    <p>{{ contents|slice:":100" }}...</p>
+                </div>
+            </div>
 <!-- "empty" displays a message if a user exists but no READMEs are discovered  -->
         {% empty %}
             <h3>No README.md Files were found for this user</h3>
         {% endfor %}
-
+</main>
 {% endblock %}

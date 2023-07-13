@@ -185,3 +185,54 @@ h1 {
     border-radius: 4px;
     cursor: pointer;
 }
+
+.edit_page {
+    margin: -10px 80px 0px 80px;
+}
+
+.edit_page form {
+    display: grid;
+    width: 80vw;
+    row-gap: 12px;
+    font-size: 20px;
+}
+
+.edit_page input {
+    font-size: large;
+    width: 30vw;
+}
+
+.submit_button {
+    padding: 8px;
+    background: #1a73e8;
+    border: 1px solid transparent;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    max-width: 80px;
+}
+
+.confirm_button {
+    padding: 8px;
+    background: forestgreen;
+    border: 1px solid transparent;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 120px;
+}
+
+.download_list {
+    display: grid;
+    grid-template-columns: 10vw 70vw;
+    align-items: center;
+}
+
+.download_list i {
+    margin: 20px;
+    font-size: 50px;
+}
+
+#git_confirm_page {
+    margin: 0px 80px 0px 80px;
+}
