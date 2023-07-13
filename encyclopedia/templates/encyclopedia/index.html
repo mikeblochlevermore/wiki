@@ -5,6 +5,21 @@
 {% endblock %}
 
 {% block body %}
+
+<h1>Download Entries from GitHub</h1>
+
+    {% if error_message %}
+        <script>
+            alert("{{ error_message }}");
+        </script>
+    {% endif %}
+
+    <form action="{% url 'index' %}" method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit">
+    </form>
+
     <h1>All Pages</h1>
 
     <ul>
