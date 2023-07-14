@@ -5,32 +5,36 @@
 <html lang="en">
     <head>
         <title>{% block title %}{% endblock %}</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link href="{% static 'encyclopedia/styles.css' %}" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
-    <body>
-        <div class="row">
-            <div class="sidebar col-lg-2 col-md-3">
-                <h2>Wiki</h2>
-                <form action="{% url 'search' %}" method="GET">
-                    <input type="text" name="q" placeholder="Search Encyclopedia">
-                </form>
-                <div>
-                    <a href="{% url 'index' %}">Home</a>
+    <body id="layout">
+        <div>
+            {% block nav %}
+            <nav class="nav">
+                    <a href="{% url 'index' %}">
+                        <div id="logo">
+                        <i class="fa fa-github" aria-hidden="true"></i>
+                        <h2>Gittipedia</h2>
+                    </div>
+                    </a>
+                <div class="navlinks">
+                    <ul>
+                        <li><a href="{% url 'create' %}">📝 Create Entry</a></li>
+                        <li><a href="{% url 'random' %}">🎲 Random Entry</a></li>
+                    </ul>
                 </div>
+                <div id="search_area">
+                    <form action="{% url 'search' %}" method="GET">
+                        <div id="searchbar">
+                            <i id="magnifier" class="fa fa-search"></i>
+                            <input id="searchinput" type="text" name="q" placeholder="Search Encyclopedia">
+                        </div>
+                    </form>
                 <div>
-                    <a href="{% url 'create' %}">Create a New Page</a>
-                </div>
-                <div>
-                    <a href="{% url 'random' %}">Random Page</a>
-                </div>
-                <div>
-                    <a href="{% url 'git' %}">GitHub</a>
-                </div>
-                {% block nav %}
-                {% endblock %}
-            </div>
-            <div class="main col-lg-10 col-md-9">
+            </nav>
+            {% endblock %}
+            <div>
                 {% block body %}
                 {% endblock %}
             </div>

@@ -5,12 +5,15 @@
 {% endblock %}
 
 {% block body %}
+<div class="edit_page">
     <h1>Now Editing: {{ title }}</h1>
+    <p class="markdown_note">🧑‍💻 Please write entries in <a href="https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax">Markdown Format</a></p>
 
     <form action="{% url 'edit' %}" method="POST">
         {% csrf_token %}
         {{ form }}
-        <input type="submit">
+        <input class="submit_button" type="submit">
     </form>
+</div>
 
 {% endblock %}
