@@ -12,29 +12,29 @@
         <div>
             {% block nav %}
             <nav class="nav">
-                <a href="{% url 'index' %}">
-                    <div id="logo">
+                    <a href="{% url 'index' %}">
+                        <div id="logo">
                         <i class="fa fa-github" aria-hidden="true"></i>
                         <h2>Gittipedia</h2>
                     </div>
-                </a>
-
-                <ul>
-                    <li><a href="{% url 'index' %}">Home</a></li>
-                    <li><a href="{% url 'create' %}">Create a New Page</a></li>
-                    <li><a href="{% url 'random' %}">Random Page</a></li>
-                </ul>
-                    <div id="search_area">
-                        <form action="{% url 'search' %}" method="GET">
-                            <div id="searchbar">
-                                <i id="magnifier" class="fa fa-search"></i>
-                                <input id="searchinput" type="text" name="q" placeholder="Search Encyclopedia">
-                            </div>
-                        </form>
-                    <div>
+                    </a>
+                <div class="navlinks">
+                    <ul>
+                        <li><a href="{% url 'create' %}">📝 Create Entry</a></li>
+                        <li><a href="{% url 'random' %}">🎲 Random Entry</a></li>
+                    </ul>
+                </div>
+                <div id="search_area">
+                    <form action="{% url 'search' %}" method="GET">
+                        <div id="searchbar">
+                            <i id="magnifier" class="fa fa-search"></i>
+                            <input id="searchinput" type="text" name="q" placeholder="Search Encyclopedia">
+                        </div>
+                    </form>
+                <div>
             </nav>
             {% endblock %}
-            <div class="main col-lg-10 col-md-9">
+            <div>
                 {% block body %}
                 {% endblock %}
             </div>

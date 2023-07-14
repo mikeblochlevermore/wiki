@@ -5,18 +5,30 @@
 {% endblock %}
 
 {% block body %}
+<div class="edit_page">
     <h1>Search Results</h1>
 
-    <h3>You searched for: "{{ query }}"</h3>
-
-    {% if partial_match %}
-    <h3>Did you mean:</h3>
+    <div id="did_you_mean">
+        <p>You searched for: "{{ query }}"</p>
+        {% if partial_match %}
+        <p>, did you mean:</p>
+    </div>
 
         {% for entry in partial_match %}
-            <h3><a href="wiki/{{ entry }}">{{ entry }}</a></h3>
+        <div class="matches">
+            <h3>
+                <a href="wiki/{{ entry }}">
+                <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                {{ entry }}
+                </a>
+            </h3>
+        </div>
         {% endfor %}
     {% else %}
-        <p>No matches found</p>
+    </div>
+        <div id="no_match">
+            <p>🤷 No matches found</p>
+        </div>
     {% endif %}
-
+</main>
 {% endblock %}
