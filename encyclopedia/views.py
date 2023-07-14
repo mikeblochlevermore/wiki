@@ -85,7 +85,7 @@ def get_git_data(username):
 
         # searches for README.md files on the main branch of each respository
         for title in repo_names:
-            lookup = requests.get(f"https://raw.githubusercontent.com/{username}/{title}/main/README.md")
+            lookup = requests.get(f"https://raw.githubusercontent.com/{username}/{title}/master/README.md")
 
             # if found, the README files are stored in a dictionary (called content), sorted by their names.
             if lookup.status_code == 200:
