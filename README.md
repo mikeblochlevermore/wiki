@@ -1,6 +1,13 @@
 # Gittipedia
+### Wiki for README.md files from GitHub users
 
-## Wiki for README.md files from GitHub users
+<img src="https://github.com/mikeblochlevermore/wiki/blob/master/encyclopedia/static/encyclopedia/wiki_cover.png?raw=true" max-width="400"/>
+
+## Watch on YouTube
+
+[![See the Video](https://github.com/mikeblochlevermore/wiki/blob/master/encyclopedia/static/encyclopedia/youtube_thumb.png?raw=true)](https://youtu.be/CcSKKu5BGdE)
+
+[See the Video](https://youtu.be/CcSKKu5BGdE)<br>
 
 ⬇️ Downloads READMEs from GitHub by username
 
